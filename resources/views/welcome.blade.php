@@ -41,9 +41,9 @@
                 </div>
                 <h1>Home Page</h1>
                 <div>
-                    <div>Home {{route()}}</div> |
-                    <div>About {{route('/about')}}</div> |
-                    <div>Contact {{route('/contact')}}</div>
+                    <a href="{{ url('/') }}">Home</a> |
+                    <a href="{{ URL::to('/about') }}">About</a> |
+                    <a href="{{ route('con') }}">Contact</a> |
                 </div>
 
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">

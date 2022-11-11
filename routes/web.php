@@ -11,7 +11,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
     echo "this is home page";
 });
-Route::get('/contact',[ContactController::class, 'index']);
+Route::get('/contact-us',[ContactController::class, 'index'])->name('con');
 Route::get('/about', function () {
     return view('about');
-})->middleware('check');
+});
