@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -22,5 +25,19 @@ class CategoryController extends Controller
                 'category_name.required' => 'Please write Category name',
                 'category_name.max' => 'Category must be less than 255 char',
             ]);
+
+        //Insert data using Eloquent ORM method
+        Category::insert([
+            'category_name' => $request->category_name,
+            'user_id' => Auth::user()->id,
+            'created_at' => Carbon::now()
+        ]);
+
+        //2nd insert method
+//        $category = new Category;
+//        $category->category_name = $request->category_name;
+//        $category->user_id = Auth::user()->id;
+//        $category->save();
+        return Redirect()->back()->with('success', 'Category Inserted Successfully');
     }
 }
