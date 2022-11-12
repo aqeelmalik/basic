@@ -16,6 +16,7 @@ Route::get('/home', function () {
 });
 Route::get('/contact-us',[ContactController::class, 'index'])->name('con');
 Route::get('/category/all',[CategoryController::class, 'AllCat'])->name('all.category');
+Route::post('/category/add',[CategoryController::class, 'AddCat'])->name('store.category');
 
 Route::get('/about', function () {
     return view('about');
