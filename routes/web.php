@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +15,8 @@ Route::get('/home', function () {
     echo "this is home page";
 });
 Route::get('/contact-us',[ContactController::class, 'index'])->name('con');
+Route::get('/category/all',[CategoryController::class, 'AllCat'])->name('all.category');
+
 Route::get('/about', function () {
     return view('about');
 });
