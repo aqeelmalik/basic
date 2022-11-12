@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 //Routes of the Project
 
@@ -23,7 +24,11 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $users = User::all();
+        // trying Eloquent ORM to Read User data
+//        $users = User::all();
+
+        //trying to read user data using query builder
+        $users = DB::table('Users')->get();
         return view('dashboard', compact('users'));
     })->name('dashboard');
 });
