@@ -13,7 +13,11 @@ class CategoryController extends Controller
     //show all categories
     public function AllCat()
     {
-        $categories = Category::latest()->get();
+        //Read data using Eloquent ORM method
+//        $categories = Category::latest()->get();
+
+        //Read data using Query Builder Method
+        $categories = DB::table('categories')->latest()->get();
         return view('admin.category.index', compact('categories'));
     }
 
