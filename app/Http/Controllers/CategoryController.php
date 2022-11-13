@@ -14,10 +14,10 @@ class CategoryController extends Controller
     public function AllCat()
     {
         //Read data using Eloquent ORM method
-//        $categories = Category::latest()->get();
+        $categories = Category::latest()->paginate(5);
 
         //Read data using Query Builder Method
-        $categories = DB::table('categories')->latest()->paginate(5);
+//        $categories = DB::table('categories')->latest()->paginate(5);
         return view('admin.category.index', compact('categories'));
     }
 
@@ -46,10 +46,10 @@ class CategoryController extends Controller
 //        $category->save();
 
         //insert data using query builder
-        $data = array();
-        $data['category_name'] = $request->category_name;
-        $data['user_id'] = Auth::user()->id;
-        DB::table('categories')->insert($data);
+//        $data = array();
+//        $data['category_name'] = $request->category_name;
+//        $data['user_id'] = Auth::user()->id;
+//        DB::table('categories')->insert($data);
 
         return Redirect()->back()->with('success', 'Category Inserted Successfully');
     }
