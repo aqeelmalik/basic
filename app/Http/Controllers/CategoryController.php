@@ -13,8 +13,17 @@ class CategoryController extends Controller
     //show all categories
     public function AllCat()
     {
+        // Note that when we user joins in query builder then we dont require models function.
+        // So better is to remove function from model
+
+        //Join table using Query Builder
+        $categories = DB::table('categories')
+            ->join('users','categories.user_id','users.id')
+            ->select('categories.*','users.name')
+            ->latest()->paginate(5);
+
         //Read data using Eloquent ORM method
-        $categories = Category::latest()->paginate(5);
+//        $categories = Category::latest()->paginate(5);
 
         //Read data using Query Builder Method
 //        $categories = DB::table('categories')->latest()->paginate(5);
