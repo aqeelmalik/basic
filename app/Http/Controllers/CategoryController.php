@@ -13,7 +13,8 @@ class CategoryController extends Controller
     //show all categories
     public function AllCat()
     {
-        return view('admin.category.index');
+        $categories = Category::latest()->get();
+        return view('admin.category.index', compact('categories'));
     }
 
     //add single category
@@ -28,11 +29,11 @@ class CategoryController extends Controller
             ]);
 
         //Insert data using Eloquent ORM method
-//        Category::insert([
-//            'category_name' => $request->category_name,
-//            'user_id' => Auth::user()->id,
-//            'created_at' => Carbon::now()
-//        ]);
+        Category::insert([
+            'category_name' => $request->category_name,
+            'user_id' => Auth::user()->id,
+            'created_at' => Carbon::now()
+        ]);
 
         //2nd insert method
 //        $category = new Category;
