@@ -17,13 +17,13 @@ class CategoryController extends Controller
         // So better is to remove function from model
 
         //Join table using Query Builder
-        $categories = DB::table('categories')
-            ->join('users','categories.user_id','users.id')
-            ->select('categories.*','users.name')
-            ->latest()->paginate(5);
+//        $categories = DB::table('categories')
+//            ->join('users','categories.user_id','users.id')
+//            ->select('categories.*','users.name')
+//            ->latest()->paginate(5);
 
         //Read data using Eloquent ORM method
-//        $categories = Category::latest()->paginate(5);
+        $categories = Category::latest()->paginate(5);
 
         //Read data using Query Builder Method
 //        $categories = DB::table('categories')->latest()->paginate(5);
@@ -61,5 +61,21 @@ class CategoryController extends Controller
 //        DB::table('categories')->insert($data);
 
         return Redirect()->back()->with('success', 'Category Inserted Successfully');
+    }
+
+    public function EditCat($id){
+        // Edit data using Eloquent ORM Method
+        $categories = Category::find($id);
+        return view('admin.category.edit', compact('categories'));
+    }
+
+    public function UpdateCat(Request $request ,$id){
+        // Update data using Eloquent ORM Method
+        $update = Category::find($id)->update([
+            'category_name' => $request->category_name,
+            'user_id' => Auth::user()->id
+        ]);
+        return Redirect()->route('all.category')->with('success', 'Category Updated Successfully');
+
     }
 }

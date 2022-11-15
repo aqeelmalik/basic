@@ -14,7 +14,7 @@ class Category extends Model
     ];
 
     // Tables Relation using Eloquent ORM method
-//    public function user(){
-//        return $this->hasOne(User::class, 'id', 'user_id');
-//    }
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }
