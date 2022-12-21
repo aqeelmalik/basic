@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
@@ -24,10 +25,11 @@ class CategoryController extends Controller
 
         //Read data using Eloquent ORM method
         $categories = Category::latest()->paginate(5);
+        $trashData = Category::onlyTrashed()->latest()->paginate(3);
 
         //Read data using Query Builder Method
 //        $categories = DB::table('categories')->latest()->paginate(5);
-        return view('admin.category.index', compact('categories'));
+        return view('admin.category.index', compact('categories', 'trashData'));
     }
 
     //add single category
@@ -85,6 +87,12 @@ class CategoryController extends Controller
         $data['user_id'] = Auth::user()->id;
         DB::table('categories')->where('id',$id)->update($data);
         return Redirect()->route('all.category')->with('success', 'Category Updated Successfully');
+
+    }
+
+    public function SoftDelete($id){
+        $delete = Category::find($id)->delete($id);
+        return Redirect()->back()->with('success', 'Category Soft Deleted Successfully');
 
     }
 }

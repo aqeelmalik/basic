@@ -46,7 +46,7 @@
                                 </td>
                                 <td>
                                     <a href="{{url('category/edit/'.$category->id)}}" class="btn btn-info">Edit</a>
-                                    <a href="" class="btn btn-danger">Delete</a>
+                                    <a href="{{url('category/softDelete/'.$category->id)}}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -76,5 +76,55 @@
                 </div>
             </div>
         </div>
+
+{{--   Trash Layout     --}}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+
+                        <div class="card-header"> Trash List</div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Sr No</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{--                            @php( $i = 1 )--}}
+                            @foreach($trashData as $category)
+                                <tr>
+                                    <th scope="row">{{ $categories->firstItem()+$loop->index }}</th>
+                                    <td>{{$category->category_name}}</td>
+                                    <td>{{$category->user->name}}</td>
+                                    <td>
+                                        @if( $category->created_at == Null)
+                                            <span class="text-danger"> Date Not Set</span>
+                                        @else
+                                            {{ Carbon\Carbon::parse($category->created_at)->diffForHumans()}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{url('category/edit/'.$category->id)}}" class="btn btn-info">Edit</a>
+                                        <a href="" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        {{ $trashData->links() }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+
+{{--   End of trash layout     --}}
     </div>
 </x-app-layout>

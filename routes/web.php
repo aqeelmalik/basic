@@ -19,6 +19,7 @@ Route::get('/category/all',[CategoryController::class, 'AllCat'])->name('all.cat
 Route::post('/category/add',[CategoryController::class, 'AddCat'])->name('store.category');
 Route::get('/category/edit/{id}',[CategoryController::class, 'EditCat']);
 Route::Post('/category/update/{id}',[CategoryController::class, 'UpdateCat']);
+Route::get('/category/softDelete/{id}',[CategoryController::class, 'SoftDelete']);
 
 Route::get('/about', function () {
     return view('about');
