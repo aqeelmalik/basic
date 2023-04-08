@@ -20,6 +20,8 @@ Route::post('/category/add',[CategoryController::class, 'AddCat'])->name('store.
 Route::get('/category/edit/{id}',[CategoryController::class, 'EditCat']);
 Route::Post('/category/update/{id}',[CategoryController::class, 'UpdateCat']);
 Route::get('/category/softDelete/{id}',[CategoryController::class, 'SoftDelete']);
+Route::get('/category/restore/{id}',[CategoryController::class, 'Restore']);
+Route::get('/category/pdelete/{id}',[CategoryController::class, 'Pdelete']);
 
 Route::get('/about', function () {
     return view('about');
