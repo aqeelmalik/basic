@@ -3,30 +3,21 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 //Routes of the Project
-
 Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/home', function () {
     echo "this is home page";
 });
-Route::get('/contact-us',[ContactController::class, 'index'])->name('con');
-Route::get('/category/all',[CategoryController::class, 'AllCat'])->name('all.category');
-Route::post('/category/add',[CategoryController::class, 'AddCat'])->name('store.category');
-Route::get('/category/edit/{id}',[CategoryController::class, 'EditCat']);
-Route::Post('/category/update/{id}',[CategoryController::class, 'UpdateCat']);
-Route::get('/category/softDelete/{id}',[CategoryController::class, 'SoftDelete']);
-Route::get('/category/restore/{id}',[CategoryController::class, 'Restore']);
-Route::get('/category/pdelete/{id}',[CategoryController::class, 'Pdelete']);
-
 Route::get('/about', function () {
     return view('about');
 });
-
+Route::get('/contact-us',[ContactController::class, 'index'])->name('con');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -41,3 +32,19 @@ Route::middleware([
         return view('dashboard', compact('users'));
     })->name('dashboard');
 });
+
+
+//Categories Routes
+Route::get('/category/all',[CategoryController::class, 'AllCat'])->name('all.category');
+Route::post('/category/add',[CategoryController::class, 'AddCat'])->name('store.category');
+Route::get('/category/edit/{id}',[CategoryController::class, 'EditCat']);
+Route::Post('/category/update/{id}',[CategoryController::class, 'UpdateCat']);
+Route::get('/category/softDelete/{id}',[CategoryController::class, 'SoftDelete']);
+Route::get('/category/restore/{id}',[CategoryController::class, 'Restore']);
+Route::get('/category/pdelete/{id}',[CategoryController::class, 'Pdelete']);
+
+
+//Routes for Brand
+Route::get('/brand/all',[BrandController::class, 'AllBrand'])->name('all.brand');
+
+
