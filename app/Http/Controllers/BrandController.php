@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Brand;
 use function PHPUnit\Framework\directoryExists;
 use function PHPUnit\Framework\exactly;
+use Image;
 
 class BrandController extends Controller
 {
@@ -25,9 +26,14 @@ class BrandController extends Controller
                 'brand_name.min' => 'Brand Name must be longer then 4 character',
             ]);
         $image = $request->file('brand_image');
-        $image_name = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = base_path('public\image\brand');
-        $image->move($destinationPath, $image_name);
+//        $image_name = time().'.'.$image->getClientOriginalExtension();
+//        $destinationPath = base_path('public\image\brand');
+//        $image->move($destinationPath, $image_name);
+
+        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(300,200)->save('image/brand/'.$name_gen);
+        $image_name = $name_gen;
+
         Brand::insert([
             'brand_name' => $request->brand_name,
             'brand_image' => $image_name,
@@ -52,9 +58,7 @@ class BrandController extends Controller
 //        call the old image
         $path = public_path().'/image/brand/';
         $old_image = $path.$request->old_image;
-
-        if($request->hasFile($old_image)){
-            if (Input::file($old_image)->isValid()) {
+        if(!empty( $request->file('brand_image'))){
                 $image = $request->file('brand_image');
                 $image_name = time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = base_path('public\image\brand');
@@ -68,7 +72,7 @@ class BrandController extends Controller
                     'created_at' => Carbon::now(),
                 ]);
                 return redirect()->back()->with('success', 'Brand Successfully Updated');
-            }}else{
+        }else{
             Brand::find($id)->update([
                 'brand_name' => $request->brand_name,
                 'created_at' => Carbon::now(),
